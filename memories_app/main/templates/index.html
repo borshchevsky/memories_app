@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+{% load socialaccount %}
+
+{% if user.is_authenticated %}
+    {{ request.user }}<br>
+<a href="http://127.0.0.1:8000/accounts/logout">logout</a>
+{% else %}
+    <div class="containter text-center">
+        <a href="{% provider_login_url 'facebook' %}">Facebook</a><br>
+        <a href="{% provider_login_url 'vk' %}">VK</a><br>
+    </div>
+{% endif %}
+{% endblock %}
