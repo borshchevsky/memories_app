@@ -3,38 +3,79 @@
 {% load static %}
 
 {% block body %}
-
 {% if user.is_authenticated %}
     {{ request.user }}<br>
 <a href="http://127.0.0.1:8000/accounts/logout">logout</a>
 <hr>
 
-<br>
-<button type="button" class="btn btn-primary" data-target="#exampleModal">
-  Launch demo modal
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
+  Добавить воспоминание
 </button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<!-- Modal -->
+<div class="modal fade" id="addMemoryWindow" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width:633px;">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="exampleModalLabel">Новое воспоминание</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+           <form action="{% url 'get_post' %}" method="post">
+                             {% csrf_token %}
+
+              <div class="containter text-center" align="right">
+
+
+                        <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
+                        <script type="text/javascript">
+                            ymaps.ready(init);
+                            var coords = '55.76,37.62';
+                            function init() {
+                                var map = new ymaps.Map("map", {
+                                    center: [55.76, 37.62],
+                                    zoom: 11,
+                                    controls: ['zoomControl']
+                                });
+                                var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: true});
+                                map.geoObjects.add(placemark);
+
+
+                                placemark.events.add('dragend', function(e) {
+                                    coords = String(e.get('target').geometry.getCoordinates());
+                                    document.getElementById('coords_id').value = coords
+                                });
+                            }
+
+                        $('#js_data_input').val(coords)
+
+                        </script>
+
+                        <div id="map" style="width: 600px; height: 400px"></div>
+
+
+              </div>
+              <div class="mb-3">
+                <label for="title" class="col-form-label">Заголовок:</label>
+                <input type="text" class="form-control" id="title" name="title">
+              </div>
+              <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Описание:</label>
+                  <textarea class="form-control" id="message-text" name="message-text"></textarea>
+
+                  <input type="hidden" name="coords" value="" id="coords_id">
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                  <button type="submit" class="btn btn-primary" value="coords">Сохранить</button>
+              </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>
-{% load static %}
-<script src="{% static 'main.js' %}"></script>
 
 {% else %}
     <div class="containter text-center">
