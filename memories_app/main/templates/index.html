@@ -8,6 +8,13 @@
 <a href="http://127.0.0.1:8000/accounts/logout">logout</a>
 <hr>
 
+{% if memories %}
+    {% for memory in memories %}
+        {{ memory }}<br>
+    {% endfor %}
+{% endif %}
+
+<hr>
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
   Добавить воспоминание
 </button>
@@ -40,15 +47,11 @@
                                 var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: true});
                                 map.geoObjects.add(placemark);
 
-
                                 placemark.events.add('dragend', function(e) {
                                     coords = String(e.get('target').geometry.getCoordinates());
-                                    document.getElementById('coords_id').value = coords
                                 });
+                            document.getElementById('coords_id').value = coords
                             }
-
-                        $('#js_data_input').val(coords)
-
                         </script>
 
                         <div id="map" style="width: 600px; height: 400px"></div>
@@ -60,11 +63,10 @@
                 <input type="text" class="form-control" id="title" name="title">
               </div>
               <div class="mb-3">
-                  <label for="message-text" class="col-form-label">Описание:</label>
-                  <textarea class="form-control" id="message-text" name="message-text"></textarea>
+                  <label for="description" class="col-form-label">Описание:</label>
+                  <textarea class="form-control" id="description" name="description"></textarea>
 
                   <input type="hidden" name="coords" value="" id="coords_id">
-
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
