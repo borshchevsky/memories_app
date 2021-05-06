@@ -22,15 +22,15 @@ def get_post(request):
     title = request.POST.get('title')
     description = request.POST.get('description')
     coordinates = request.POST.get('coords')
-    # lat, lon = coordinates.split(',')
+    lat, lon = coordinates.split(',')
     print(f'COORDINATES: {coordinates}')
-    # Memory.objects.create(
-    #     user=user,
-    #     title=title,
-    #     description=description,
-    #     lat=lat,
-    #     lon=lon,
-    # )
+    Memory.objects.create(
+        user=user,
+        title=title,
+        description=description,
+        lat=lat,
+        lon=lon,
+    )
     return redirect('index')
 
 

@@ -9,13 +9,14 @@
                       <script type="text/javascript">
 
                             ymaps.ready(init);
+                            coords = [{{ memory.lat }}, {{ memory.lon }}]
                             function init() {
                                 var map = new ymaps.Map("map", {
-                                    center: [{{ memory.lat }}, {{ memory.lon }}],
-                                    zoom: 11,
+                                    center: coords,
+                                    zoom: 17,
                                     controls: ['zoomControl']
                                 });
-                                var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: false});
+                                var placemark = new ymaps.Placemark(coords, {}, {draggable: false});
                                 map.geoObjects.add(placemark);
 
                             }
@@ -25,7 +26,5 @@
     <div style="padding-top:20px">
         <p>Заголовок: {{ memory.title }}</p>
         <p>Описание: {{ memory.description }}</p>
-        <p>Описание: {{ memory.lat }}</p>
-        <p>Описание: {{ memory.lon }}</p>
     </div>
 {% endblock %}

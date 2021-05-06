@@ -6,18 +6,25 @@
 {% if user.is_authenticated %}
 
     {% if memories %}
-        {% for memory in memories %}
-            <p>
-                <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a><br>
-                {{ memory.lat }}, {{ memory.lon }}
-            </p>
-        {% endfor %}
+        <div style="padding-top:50px;">
+            {% for memory in memories %}
+                <p>
+                    <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a>
+                </p>
+                <p style="font-size:8px;padding-bottom:15px;">{{ memory.pub_date }}</p>
+            {% endfor %}
+        </div>
     {% else %}
         <div class="content" style="font-size:22px">У вас нет воспоминаний.</div>
     {% endif %}
 
+
+
+
+
+
     <hr>
-    <button style="border-size:0px;background-color:#7746C0;" type="button" class="btn btn-primary shadow-none" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
+    <button style="background-color:#7746C0;color:white" type="button" class="btn shadow-none" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
         <span class="glyphicon glyphicon-plus"></span>
       + Добавить воспоминание
     </button>
@@ -36,21 +43,25 @@
                    <div class="containter text-center" align="right">
                        <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
                        <script type="text/javascript">
-                           var coords = '55.76,37.62';
+
+
                            ymaps.ready(init);
+                           var coords = [55.76, 37.62]
                            function init() {
                                var map = new ymaps.Map("map", {
-                                   center: [55.76, 37.62],
+                                   center: coords,
                                    zoom: 11,
                                    controls: ['zoomControl']
                                });
-                               var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: true});
+                               var placemark = new ymaps.Placemark(coords, {}, {draggable: true});
                                map.geoObjects.add(placemark);
 
+                               document.getElementById('coords_id').value = coords.toString();
                                placemark.events.add('dragend', function(e) {
                                    coords = String(e.get('target').geometry.getCoordinates());
+                                   document.getElementById('coords_id').value = coords.toString();
                                });
-                           document.getElementById('coords_id').value = coords;
+
                            }
                        </script>
                       <div id="map" style="width: 600px; height: 400px"></div>
@@ -67,7 +78,7 @@
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                      <button type="submit" class="btn btn-primary" value="coords">Сохранить</button>
+                      <button type="submit" class="btn btn-primary" value="">Сохранить</button>
                   </div>
             </form>
           </div>

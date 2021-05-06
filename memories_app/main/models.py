@@ -9,6 +9,7 @@ class Memory(models.Model):
     description = models.TextField()
     lat = models.CharField(max_length=255)
     lon = models.CharField(max_length=255)
+    pub_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = 'memories'
