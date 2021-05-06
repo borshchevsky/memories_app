@@ -4,38 +4,36 @@
 
 {% block body %}
 {% if user.is_authenticated %}
-    {{ request.user }}<br>
-<a href="http://127.0.0.1:8000/accounts/logout">logout</a>
-<hr>
 
-{% if memories %}
-    {% for memory in memories %}
-        {{ memory }}<br>
-    {% endfor %}
-{% endif %}
+    {% if memories %}
+        {% for memory in memories %}
+            {{ memory }}<br>
+        {% endfor %}
+    {% else %}
+        <div class="content" style="font-size:22px">У вас нет воспоминаний.</div>
+    {% endif %}
 
-<hr>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
-  Добавить воспоминание
-</button>
+    <hr>
+    <button style="background-color:#7746C0;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
+        <span class="glyphicon glyphicon-plus"></span>
+      + Добавить воспоминание
+    </button>
 
-<!-- Modal -->
-<div class="modal fade" id="addMemoryWindow" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" style="width:633px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Новое воспоминание</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-           <form action="{% url 'get_post' %}" method="post">
-                             {% csrf_token %}
+    <!-- Modal -->
+    <div class="modal fade" id="addMemoryWindow" data-bs-backdrop="backdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+      <div class="modal-dialog modal-lg" style="width:633px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Новое воспоминание</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+               <form action="{% url 'get_post' %}" method="post">
+                                 {% csrf_token %}
 
-              <div class="containter text-center" align="right">
-
-
-                        <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
-                        <script type="text/javascript">
+                  <div class="containter text-center" align="right">
+                      <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
+                      <script type="text/javascript">
                             ymaps.ready(init);
                             var coords = '55.76,37.62';
                             function init() {
@@ -52,42 +50,47 @@
                                 });
                             document.getElementById('coords_id').value = coords
                             }
-                        </script>
+                     </script>
+                     <div id="map" style="width: 600px; height: 400px"></div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="title" class="col-form-label">Заголовок:</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                  </div>
+                  <div class="mb-3">
+                      <label for="description" class="col-form-label">Описание:</label>
+                      <textarea class="form-control" id="description" name="description"></textarea>
 
-                        <div id="map" style="width: 600px; height: 400px"></div>
+                      <input type="hidden" name="coords" value="" id="coords_id">
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                      <button type="submit" class="btn btn-primary" value="coords">Сохранить</button>
+                  </div>
+            </form>
+          </div>
 
-
-              </div>
-              <div class="mb-3">
-                <label for="title" class="col-form-label">Заголовок:</label>
-                <input type="text" class="form-control" id="title" name="title">
-              </div>
-              <div class="mb-3">
-                  <label for="description" class="col-form-label">Описание:</label>
-                  <textarea class="form-control" id="description" name="description"></textarea>
-
-                  <input type="hidden" name="coords" value="" id="coords_id">
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                  <button type="submit" class="btn btn-primary" value="coords">Сохранить</button>
-              </div>
-        </form>
+        </div>
       </div>
-
     </div>
-  </div>
-</div>
 
-{% else %}
-    <div class="containter text-center">
+    {% else %}
+    <div class="content">
+        <div class="containter text-center">
 
-<!--        Поменять, после деплоя и настройки SSL-->
+    <!--        Поменять, после деплоя и настройки SSL-->
 
-<!--        <a href="{% provider_login_url 'facebook' %}">Facebook</a><br>-->
-        <a href="https://127.0.0.1:8443/accounts/facebook/login/">Facebook</a><br>
-<!--        <a href="{% provider_login_url 'vk' %}">VK</a><br>-->
-        <a href="https://127.0.0.1:8443/accounts/vk/login/">VK</a><br>
+    <!--        <a href="{% provider_login_url 'facebook' %}">Facebook</a><br>-->
+    <!--        <a href="{% provider_login_url 'vk' %}">VK</a><br>-->
+
+
+            <a href="https://127.0.0.1:8443/accounts/facebook/login/" class="btn" style="text-align:center ;width:200px;color:white;background-color:#4c75a3;">
+                <strong>Войти через VK</strong>
+            </a>
+            <a href="https://127.0.0.1:8443/accounts/facebook/login/" class="btn" style="width:200px;color:white;background-color:#4267B2;">
+                <strong>Войти через Facebook</strong>
+            </a>
+        </div>
     </div>
 {% endif %}
 {% endblock %}

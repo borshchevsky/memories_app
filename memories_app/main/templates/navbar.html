@@ -1,1 +1,10 @@
-<!-- if logged_in: button_logout -->
+<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #7746C0;border-radius:5px">
+    <div class="container-fluid" style="text-align:inherit">
+        <a class="navbar-brand" href="{% url 'index' %}"><strong>Воспоминания</strong></a>
+        <div class="collapse navbar-collapse">
+            <span class="navbar-brand">{{ user.get_username }}</span>
+        </div>
+            <a class="navbar-brand" href="{% url 'account_logout' %}">Выйти</a>
+    </div>
+</nav>
+

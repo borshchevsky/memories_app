@@ -9,5 +9,8 @@ class Memory(models.Model):
     lat = models.CharField(max_length=255)
     lon = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name_plural = 'memories'
+
     def __str__(self):
         return f'{self.user} {self.title}'

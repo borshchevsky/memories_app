@@ -21,8 +21,6 @@ def get_post(request):
     title = request.POST.get('title')
     description = request.POST.get('description')
     coordinates = request.POST.get('coords')
-    print(type(coordinates))
-    print(f'Coords:{coordinates}')
     lat, lon = coordinates.split(',')
     Memory.objects.create(
         user=user,
