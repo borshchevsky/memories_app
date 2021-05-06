@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView
 
 from .models import Memory
 
@@ -21,12 +22,19 @@ def get_post(request):
     title = request.POST.get('title')
     description = request.POST.get('description')
     coordinates = request.POST.get('coords')
-    lat, lon = coordinates.split(',')
-    Memory.objects.create(
-        user=user,
-        title=title,
-        description=description,
-        lat=lat,
-        lon=lon,
-    )
+    # lat, lon = coordinates.split(',')
+    print(f'COORDINATES: {coordinates}')
+    # Memory.objects.create(
+    #     user=user,
+    #     title=title,
+    #     description=description,
+    #     lat=lat,
+    #     lon=lon,
+    # )
     return redirect('index')
+
+
+class MemoryDetailView(DetailView):
+    model = Memory
+    fields = '__all__'
+    template_name_suffix = '_detail'

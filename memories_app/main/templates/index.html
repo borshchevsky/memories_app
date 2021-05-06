@@ -7,20 +7,23 @@
 
     {% if memories %}
         {% for memory in memories %}
-            {{ memory }}<br>
+            <p>
+                <a href="{{ memory.get_absolute_url }}">{{ memory.title }}</a><br>
+                {{ memory.lat }}, {{ memory.lon }}
+            </p>
         {% endfor %}
     {% else %}
         <div class="content" style="font-size:22px">У вас нет воспоминаний.</div>
     {% endif %}
 
     <hr>
-    <button style="background-color:#7746C0;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
+    <button style="border-size:0px;background-color:#7746C0;" type="button" class="btn btn-primary shadow-none" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
         <span class="glyphicon glyphicon-plus"></span>
       + Добавить воспоминание
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="addMemoryWindow" data-bs-backdrop="backdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal fade" id="addMemoryWindow" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
       <div class="modal-dialog modal-lg" style="width:633px;">
         <div class="modal-content">
           <div class="modal-header">
@@ -29,30 +32,29 @@
           </div>
           <div class="modal-body">
                <form action="{% url 'get_post' %}" method="post">
-                                 {% csrf_token %}
+                   {% csrf_token %}
+                   <div class="containter text-center" align="right">
+                       <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
+                       <script type="text/javascript">
+                           var coords = '55.76,37.62';
+                           ymaps.ready(init);
+                           function init() {
+                               var map = new ymaps.Map("map", {
+                                   center: [55.76, 37.62],
+                                   zoom: 11,
+                                   controls: ['zoomControl']
+                               });
+                               var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: true});
+                               map.geoObjects.add(placemark);
 
-                  <div class="containter text-center" align="right">
-                      <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
-                      <script type="text/javascript">
-                            ymaps.ready(init);
-                            var coords = '55.76,37.62';
-                            function init() {
-                                var map = new ymaps.Map("map", {
-                                    center: [55.76, 37.62],
-                                    zoom: 11,
-                                    controls: ['zoomControl']
-                                });
-                                var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: true});
-                                map.geoObjects.add(placemark);
-
-                                placemark.events.add('dragend', function(e) {
-                                    coords = String(e.get('target').geometry.getCoordinates());
-                                });
-                            document.getElementById('coords_id').value = coords
-                            }
-                     </script>
-                     <div id="map" style="width: 600px; height: 400px"></div>
-                  </div>
+                               placemark.events.add('dragend', function(e) {
+                                   coords = String(e.get('target').geometry.getCoordinates());
+                               });
+                           document.getElementById('coords_id').value = coords;
+                           }
+                       </script>
+                      <div id="map" style="width: 600px; height: 400px"></div>
+                      </div>
                   <div class="mb-3">
                     <label for="title" class="col-form-label">Заголовок:</label>
                     <input type="text" class="form-control" id="title" name="title">

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    Детали воспоминания
+{% endblock %}
+
+{% block body %}
+    <div>
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
+                      <script type="text/javascript">
+
+                            ymaps.ready(init);
+                            function init() {
+                                var map = new ymaps.Map("map", {
+                                    center: [{{ memory.lat }}, {{ memory.lon }}],
+                                    zoom: 11,
+                                    controls: ['zoomControl']
+                                });
+                                var placemark = new ymaps.Placemark([55.76, 37.62], {}, {draggable: false});
+                                map.geoObjects.add(placemark);
+
+                            }
+                     </script>
+                     <div id="map" style="width: 600px; height: 400px"></div>
+    </div>
+    <div style="padding-top:20px">
+        <p>Заголовок: {{ memory.title }}</p>
+        <p>Описание: {{ memory.description }}</p>
+        <p>Описание: {{ memory.lat }}</p>
+        <p>Описание: {{ memory.lon }}</p>
+    </div>
+{% endblock %}
