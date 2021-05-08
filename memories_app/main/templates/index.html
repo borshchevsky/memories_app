@@ -4,7 +4,11 @@
 
 {% block body %}
 {% if user.is_authenticated %}
-
+<hr>
+    <button style="background-color:#7746C0;color:white" type="button" class="btn shadow-none" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
+        <span class="glyphicon glyphicon-plus"></span>
+      + Добавить воспоминание
+    </button>
     {% if memories %}
         <div style="padding-top:50px;">
             {% for memory in memories %}
@@ -18,16 +22,6 @@
         <div class="content" style="font-size:22px">У вас нет воспоминаний.</div>
     {% endif %}
 
-
-
-
-
-
-    <hr>
-    <button style="background-color:#7746C0;color:white" type="button" class="btn shadow-none" data-bs-toggle="modal" data-bs-target="#addMemoryWindow">
-        <span class="glyphicon glyphicon-plus"></span>
-      + Добавить воспоминание
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="addMemoryWindow" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
