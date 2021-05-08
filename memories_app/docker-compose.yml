@@ -3,14 +3,24 @@ version: '3'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn memories_app.wsgi:application --bind 0.0.0.0:8000 --reload
     volumes:
       - .:/code
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
+    env_file:
+      - env.dev
   db:
     image: postgres
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+
+  nginx:
+    build:
+      ./nginx
+    depends_on:
+      - web
+    ports:
+      - '80:80'
