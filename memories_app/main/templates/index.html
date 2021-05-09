@@ -84,19 +84,10 @@
     {% else %}
     <div class="content">
         <div class="containter text-center">
-
-    <!--        Поменять, после деплоя и настройки SSL-->
-
-    <!--        <a href="{% provider_login_url 'facebook' %}">Facebook</a><br>-->
-    <!--        <a href="{% provider_login_url 'vk' %}">VK</a><br>-->
-
-
-            <a href="https://127.0.0.1:8443/accounts/facebook/login/" class="btn" style="text-align:center ;width:200px;color:white;background-color:#4c75a3;">
-                <strong>Войти через VK</strong>
-            </a>
-            <a href="https://127.0.0.1:8443/accounts/facebook/login/" class="btn" style="width:200px;color:white;background-color:#4267B2;">
-                <strong>Войти через Facebook</strong>
-            </a>
+            <a href="{% provider_login_url 'vk' %}"><strong>Войти через VK</strong></a><br>
+<!--            <a href="https://127.0.0.1:8443/accounts/facebook/login/" class="btn" style="text-align:center ;width:200px;color:white;background-color:#4c75a3;"><strong>Войти через VK</strong></a>-->
+            <a href="{% provider_login_url 'facebook' %}"><strong>Войти через Facebook</strong></a><br>
+<!--            <a href="https://127.0.0.1:8443/accounts/facebook/login/" class="btn" style="width:200px;color:white;background-color:#4267B2;"><strong>Войти через Facebook</strong></a>-->
         </div>
     </div>
 {% endif %}
