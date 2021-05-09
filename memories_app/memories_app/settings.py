@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'borshchevsky.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'borshchevsky.com', 'www.borshchevsky.com']
 
 # Application definition
 
@@ -140,6 +140,6 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = '/'
 # SOCIAL_AUTH_REDIRECT = True
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 GOOGLE_MAPS_API_KEY = 'AIzaSyBxFvEJw10ciKAHInPoprvD4fd2QzBAHWg'
 ACCOUNT_LOGOUT_ON_GET = True
