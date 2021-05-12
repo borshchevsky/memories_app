@@ -37,8 +37,6 @@
                    <div class="containter text-center" align="right">
                        <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
                        <script type="text/javascript">
-
-
                            ymaps.ready(init);
                            var coords = [55.76, 37.62]
                            function init() {
@@ -55,7 +53,6 @@
                                    coords = String(e.get('target').geometry.getCoordinates());
                                    document.getElementById('coords_id').value = coords.toString();
                                });
-
                            }
                        </script>
                       <div id="map" style="width: 600px; height: 400px"></div>

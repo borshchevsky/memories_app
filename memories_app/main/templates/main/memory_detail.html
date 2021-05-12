@@ -1,8 +1,10 @@
-<div class="modal fade" id="addMemoryWindow" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-      <div class="modal-dialog modal-lg" style="width:633px;">
-        <div class="modal-content">
-          <div class="modal-header">
-    <div>
+{% extends 'base.html' %}
+{% block title %}
+    Детали воспоминания
+{% endblock %}
+
+{% block body %}
+    <div class="container">
         <script src="https://api-maps.yandex.ru/2.1/?apikey=1435ed3c-5da6-4707-ab5e-05acf394d294&lang=ru_RU" type="text/javascript"></script>
                       <script type="text/javascript">
 
@@ -22,11 +24,7 @@
                      <div id="map" style="width: 600px; height: 400px"></div>
     </div>
     <div style="padding-top:20px">
-        <p>Заголовок: {{ memory.title }}</p>
-        <p>Описание: {{ memory.description }}</p>
+        <label class="col-form-label"> {{ memory.title }}:</label>
+        <textarea readonly class="form-control" id="description">{{ memory.description }}</textarea>
     </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
+{% endblock %}
